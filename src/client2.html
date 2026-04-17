@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Portal</title>
+    <style>
+        body {
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .card {
+            background: white;
+            border: 2px solid black;
+            border-radius: 12px;
+            box-shadow: 6px 6px 0px black;
+            padding: 30px;
+            width: 350px;
+            text-align: center;
+        }
+        h2 { margin-top: 0; font-size: 24px; }
+        hr { border: 0; border-top: 1px solid black; margin-bottom: 20px; }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #333;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            border: 2px solid black;
+            border-radius: 4px;
+            background-color: #d1e9ff;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+        button:active { transform: translate(2px, 2px); }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>Faculty Form</h2>
+    <hr>
+    <input type="text" id="username" placeholder="Username">
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Password">
+    
+    <button onclick="sendData('register')">Register</button>
+    <button onclick="sendData('login')">Login</button>
+</div>
+
+<script>
+    async function sendData(action) {
+        const usernameValue = document.getElementById('username').value;
+        const passwordValue = document.getElementById('password').value;
+        const emailValue = document.getElementById('email').value;
+
+        const payload = {
+            action: action,
+            username: usernameValue,
+            password: passwordValue,
+            email: emailValue,
+            role: 'faculty'
+        };
+
+        try {
+            const response = await fetch('http://localhost/adet-api-project/server.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            const data = await response.json();
+            alert(data.message);
+        } catch (error) {
+            console.error("Error:", error);
+            alert("Connection failed");
+        }
+    }
+</script>
+
+</body>
+</html>
