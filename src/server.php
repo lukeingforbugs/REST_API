@@ -107,7 +107,7 @@ if ($action === "login") {
         echo json_encode([
             "status" => "success",
             "message" => "Login successful",
-            "role" => $user['role'] // ✅ Checked: singular
+            "role" => $user['role']
         ]);
     } else {
         echo json_encode(["status" => "error", "message" => "Wrong password"]);
